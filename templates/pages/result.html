@@ -1,0 +1,203 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'css/all.css' %}" />
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+    <!-- Custom -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <!--Lightbox -->
+    <!-- <link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}" /> -->
+    <link rel="shortcut icon" href={% static 'img/Bookicon.png'%} type="image/x-icon">
+    <link href={% static 'css/styles.css'%} rel="stylesheet">
+    <!-- Fonts CSS-->
+    <link rel="stylesheet" href={% static 'css/heading.css'%}>
+    <link rel="stylesheet" href={% static 'css/body.css'%}>
+    <title>Result - Web App</title>
+
+    <style>
+      body{
+        background-color: #2c2f33;
+      }
+        .loading {
+        position: fixed;
+        margin: auto;
+        width: 100%;
+        height: 100%;
+        -webkit-animation: background 5s ease infinite;
+        animation: background 5s ease infinite;
+      }
+      .loading .loadingWrapper {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
+      .loading .loadingWrapper #loading {
+        margin: auto;
+        height: 100px;
+        width: 100px;
+        border: transparent;
+        border-top: 3px solid #ffcb23;
+        border-radius: 50%;
+        -webkit-animation: round 2s linear infinite;
+        animation: round 2s linear infinite;
+      }
+      .loading .loadingWrapper h1 {
+        color: #555555;
+        position: relative;
+        margin: auto;
+        top: 50%;
+      }
+
+      @-webkit-keyframes round {
+        from {
+          -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+        }
+        to {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes round {
+        from {
+          -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+        }
+        to {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+      @-webkit-keyframes backGround {
+        0% {
+          background-color: #222222;
+        }
+        50% {
+          background-color: #555555;
+        }
+        75% {
+          background-color: #444444;
+        }
+        100% {
+          background-color: #111111;
+        }
+      }
+      @keyframes backGround {
+        0% {
+          background-color: #222222;
+        }
+        50% {
+          background-color: #555555;
+        }
+        75% {
+          background-color: #444444;
+        }
+        100% {
+          background-color: #111111;
+        }
+      }
+    </style>
+  </head>
+  <body onload="Function()" >
+    
+    <div class="loading" id="predicting_id">
+      <div class="loadingWrapper">
+        <div id="loading"> </div>
+        <h1>Predicting... <span style='font-size:2rem;'>&#128578;</span></h1>
+      </div>
+    </div>
+    
+    <div class="container-fluid" id="main_content" style="display: none;">
+
+      <div>
+        <h1 style="text-align: center; padding-top: 3rem; color: rgb(243, 243, 243)">
+          This Book Fits You The Most
+        </h1>
+      </div>
+      
+      <div style="background-color: dark;" class="container">
+        <div class="row">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-6" class="h5" class="text-center" class="list-group">
+            <li class="list-group-item list-group-item-action">
+              <img src="{{ books.0.image_url }}" style="display:block;" width="100%" height="330rem"  alt="">
+            </li>
+            <a class="list-group-item list-group-item-action"> <strong> Book Name: </strong>{{ books.0.title }}</a>
+            <a class="list-group-item list-group-item-action list-group-item-success"> <strong> Book Writer: </strong>{{books.0.writer}}</a>
+            <a class="list-group-item list-group-item-action list-group-item-secondary" ><strong>Book Type: </strong> {{books.0.genres}}</a>
+            <a class="list-group-item list-group-item-action list-group-item-info"><strong>Number Of Pages: </strong>{{books.0.page_num}}</a>
+            <a class="list-group-item list-group-item-action list-group-item-warning"><strong>Publish Year: </strong>{{books.0.pub_year}}</a>
+            <a class="list-group-item list-group-item-action list-group-item-danger"><strong>Book Rating: </strong>{{books.0.rating}} Stars</a>
+            <a class="list-group-item list-group-item-action list-group-item-secondary"><strong>Book ISBN: </strong> {{books.0.isbn}}</a>
+          </div>
+          <div class="col-sm-3"></div>
+        </div>
+        
+        <div style="margin-top: 100px"></div>
+      </div>
+      <div class="container" id="page-top">
+        <section class="page-section portfolio" id="portfolio">
+          <div class="container">
+              <!-- Portfolio Section Heading-->
+              <div class="text-center">
+                  <h2 class="page-section-heading text-white mb-0 d-inline-block">RELEVANT BOOKS</h2>
+              </div>
+              <br>
+              <div class="row">
+                {% if books %}
+                  {% for book in books %}
+                    <div class="col-sm-3"></div>
+                    <div style="margin-bottom: 4rem;" class="col-sm-6" class="h5" class="text-center" class="list-group">
+                      <li class="list-group-item list-group-item-action">
+                        <img src="{{ book.image_url }}" style="display:block;" width="100%" height="250rem"  alt="">
+                      </li>
+                      <a class="list-group-item list-group-item-action"><strong> Book Name: </strong>{{ book.title }}</a>
+                      <a class="list-group-item list-group-item-action list-group-item-success"><strong> Book Writer: </strong>{{book.writer}}</a>
+                      <a class="list-group-item list-group-item-action list-group-item-secondary"><strong>Book Type: </strong> {{book.genres}}</a>
+                      <a class="list-group-item list-group-item-action list-group-item-info"><strong>Number Of Pages: </strong>{{book.page_num}}</a>
+                      <a class="list-group-item list-group-item-action list-group-item-warning"><strong>Publish Year: </strong>{{book.pub_year}}</a>
+                      <a class="list-group-item list-group-item-action list-group-item-danger"><strong>Book Rating: </strong>{{book.rating}} Stars</a>
+                      <a class="list-group-item list-group-item-action list-group-item-secondary"><strong>Book ISBN: </strong> {{book.isbn}}</a>
+                    </div>
+                    <div class="col-sm-3"></div>
+                  {% endfor %}
+                {% else %}
+                    <h5>No Books To Display !!!</h5>
+                {% endif %}
+              </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script src="{% static 'js/jquery-3.3.1.min.js' %} "></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js ' %}"></script>
+    <script src="{% static 'js/main.js' %} "></script>
+    <script src="{% static 'js/lightbox.min.js' %}"></script>
+
+    <script type="text/javascript">
+      function Function() {
+          //setTimeout(call_me, 100);
+          call_me()
+      }
+    
+      function call_me(){
+        var predicting_id = document.getElementById('predicting_id');
+        var main_content = document.getElementById('main_content');
+        predicting_id.style.display = "none";
+        main_content.style.display = "inline-table";
+      }
+  
+    </script>
+  </body>
+</html>
